@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300..700&family=Inter+Tight:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #0F1419;
+  --paper: #FAF7F2;
+  --cream: #F3EEE5;
+  --rule: #E5DFD3;
+  --muted: #6B655B;
+  --accent: #B6452C;
+  --ok: #3B7A57;
+  --warn: #C28A2C;
+  --bad: #A33A2A;
+
+  /* Touch target size for buttons */
+  --tap-target: 36px;
+}
+
+html, body, #root { height: 100%; }
+body {
+  font-family: 'Inter Tight', system-ui, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-serif { font-family: 'Fraunces', Georgia, serif; }
+
+/* ─── Focus indicators ─────────────────────────────────────────────── */
+*:focus { outline: none; }
+*:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Stronger focus in high-contrast mode */
+.hc *:focus-visible {
+  outline: 4px solid #000;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px #fff;
+}
+
+/* ─── High-contrast mode ───────────────────────────────────────────── */
+.hc {
+  --ink: #000;
+  --paper: #fff;
+  --rule: #000;
+  --muted: #000;
+  --cream: #f5f5f5;
+  --accent: #8B0000;
+  --ok: #006400;
+  --warn: #8B4500;
+  --bad: #8B0000;
+}
+
+.hc body { background: #fff; color: #000; }
+.hc * {
+  border-color: #000 !important;
+}
+.hc a, .hc button { text-decoration: underline; }
+.hc button:not([disabled]) {
+  border-width: 2px !important;
+}
+.hc img, .hc svg { filter: contrast(1.2); }
+
+/* ─── Reduced motion ───────────────────────────────────────────────── */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+.reduce-motion .animate-scanline,
+.reduce-motion .animate-slideIn,
+.reduce-motion .animate-fadeIn {
+  animation: none !important;
+}
+
+.reduce-motion .animate-spin-slow {
+  animation: none !important;
+  /* Replace spinner with static dots */
+}
+
+/* Browser/system preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ─── Simple / focus mode ──────────────────────────────────────────── */
+.simple-mode {
+  --tap-target: 44px;
+}
+
+.simple-mode body {
+  line-height: 1.7;
+}
+
+/* Hide decorative elements */
+.simple-mode .decorative,
+.simple-mode [aria-hidden="true"].decorative-element {
+  display: none !important;
+}
+
+/* Larger tap targets for buttons */
+.simple-mode button,
+.simple-mode a[role="button"],
+.simple-mode .focus\:not-sr-only,
+.simple-mode input[type="submit"],
+.simple-mode input[type="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Make form inputs taller */
+.simple-mode input[type="text"],
+.simple-mode input[type="email"],
+.simple-mode input[type="password"],
+.simple-mode input[type="number"],
+.simple-mode input[type="date"],
+.simple-mode select,
+.simple-mode textarea {
+  min-height: 44px;
+  font-size: 1rem;
+}
+
+/* Stronger contrast */
+.simple-mode {
+  --muted: #4a443a;
+}
+
+/* Remove gradient/blur backgrounds */
+.simple-mode [class*="bg-gradient"],
+.simple-mode [style*="radial-gradient"],
+.simple-mode [style*="linear-gradient"] {
+  background: var(--paper) !important;
+}
+
+/* Wider spacing */
+.simple-mode .space-y-2 > * + * { margin-top: 0.75rem; }
+.simple-mode .space-y-3 > * + * { margin-top: 1rem; }
+.simple-mode .space-y-4 > * + * { margin-top: 1.25rem; }
+.simple-mode .space-y-6 > * + * { margin-top: 2rem; }
+
+/* ─── Animations (respect reduce-motion) ───────────────────────────── */
+@keyframes scanline {
+  0% { top: 0; }
+  50% { top: 100%; }
+  100% { top: 0; }
+}
+@keyframes slideIn {
+  from { transform: translateY(-8px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.animate-scanline   { animation: scanline 2s linear infinite; }
+.animate-slideIn    { animation: slideIn 0.4s ease-out; }
+.animate-spin-slow  { animation: spin 1s linear infinite; }
+.animate-fadeIn     { animation: fadeIn 0.2s ease-out; }
+
+/* ─── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
+
+/* ─── Screen-reader only ───────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.sr-only.focus\:not-sr-only:focus,
+.focus\:not-sr-only:focus {
+  position: static;
+  width: auto; height: auto;
+  padding: inherit; margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* ─── Skip link ────────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-weight: 600;
+  z-index: 100;
+  text-decoration: none;
+  transition: top 0.2s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ─── Table accessibility helpers ──────────────────────────────────── */
+table caption.sr-only {
+  /* Captions should be readable by AT but invisible */
+}
