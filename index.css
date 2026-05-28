@@ -5,22 +5,19 @@
 @tailwind utilities;
 
 :root {
-  /* ─── Core palette: cobalt blue, education, minimal ─────────────────── */
-  --ink:           #0B2A5B;   /* deep royal navy — body text + primary surfaces */
-  --paper:         #F6F8FC;   /* app background, cool near-white */
-  --cream:         #ECF1FB;   /* soft blue-tinted neutral fill */
-  --rule:          #DCE4F1;   /* hairline borders */
-  --muted:         #5A6A85;   /* secondary text */
-  --accent:        #2563EB;   /* bright cobalt — primary brand highlight */
-  --accent-strong: #1D4ED8;   /* cobalt hover / pressed */
-  --accent-soft:   #E6EEFD;   /* cobalt tint fill */
-
-  /* Status (kept professional, not flashy) */
+  --ink:           #0B2A5B;
+  --paper:         #F6F8FC;
+  --cream:         #ECF1FB;
+  --rule:          #DCE4F1;
+  --muted:         #5A6A85;
+  --accent:        #2563EB;
+  --accent-strong: #1D4ED8;
+  --accent-soft:   #E6EEFD;
+  
   --ok:    #16966A;
   --warn:  #B7791F;
   --bad:   #D14B43;
 
-  /* Touch target size for buttons */
   --tap-target: 36px;
 }
 
@@ -33,16 +30,14 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Heading face. The codebase uses `.font-serif` for headings throughout;
-   we keep the class name but map it to a heavier Roboto so hierarchy comes
-   from weight + tracking instead of a serif contrast. */
+/* Heading*/
 .font-serif {
   font-family: 'Roboto', system-ui, sans-serif;
   font-weight: 700;
   letter-spacing: -0.015em;
 }
 
-/* ─── Focus indicators ─────────────────────────────────────────────── */
+/* Focus */
 *:focus { outline: none; }
 *:focus-visible {
   outline: 3px solid var(--accent);
@@ -50,14 +45,14 @@ body {
   border-radius: 6px;
 }
 
-/* Stronger focus in high-contrast mode */
+/* Focus in high-contrast mode */
 .hc *:focus-visible {
   outline: 4px solid #000;
   outline-offset: 3px;
   box-shadow: 0 0 0 6px #fff;
 }
 
-/* ─── High-contrast mode ───────────────────────────────────────────── */
+/* High-contrast mode */
 .hc {
   --ink: #000;
   --paper: #fff;
@@ -82,7 +77,7 @@ body {
 }
 .hc img, .hc svg { filter: contrast(1.2); }
 
-/* ─── Reduced motion ───────────────────────────────────────────────── */
+/* Reduced motion */
 .reduce-motion *,
 .reduce-motion *::before,
 .reduce-motion *::after {
@@ -102,7 +97,6 @@ body {
   animation: none !important;
 }
 
-/* Browser/system preference */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;
@@ -111,7 +105,7 @@ body {
   }
 }
 
-/* ─── Simple / focus mode ──────────────────────────────────────────── */
+/* Simple */
 .simple-mode {
   --tap-target: 44px;
 }
@@ -120,13 +114,11 @@ body {
   line-height: 1.7;
 }
 
-/* Hide decorative elements */
 .simple-mode .decorative,
 .simple-mode [aria-hidden="true"].decorative-element {
   display: none !important;
 }
 
-/* Larger tap targets for buttons */
 .simple-mode button,
 .simple-mode a[role="button"],
 .simple-mode .focus\:not-sr-only,
@@ -136,7 +128,6 @@ body {
   min-width: 44px;
 }
 
-/* Make form inputs taller */
 .simple-mode input[type="text"],
 .simple-mode input[type="email"],
 .simple-mode input[type="password"],
@@ -148,25 +139,22 @@ body {
   font-size: 1rem;
 }
 
-/* Stronger contrast */
 .simple-mode {
   --muted: #3c485e;
 }
 
-/* Remove gradient/blur backgrounds */
 .simple-mode [class*="bg-gradient"],
 .simple-mode [style*="radial-gradient"],
 .simple-mode [style*="linear-gradient"] {
   background: var(--paper) !important;
 }
 
-/* Wider spacing */
 .simple-mode .space-y-2 > * + * { margin-top: 0.75rem; }
 .simple-mode .space-y-3 > * + * { margin-top: 1rem; }
 .simple-mode .space-y-4 > * + * { margin-top: 1.25rem; }
 .simple-mode .space-y-6 > * + * { margin-top: 2rem; }
 
-/* ─── Animations (respect reduce-motion) ───────────────────────────── */
+/* Animations */
 @keyframes scanline {
   0% { top: 0; }
   50% { top: 100%; }
@@ -189,13 +177,11 @@ body {
 .animate-spin-slow  { animation: spin 1s linear infinite; }
 .animate-fadeIn     { animation: fadeIn 0.2s ease-out; }
 
-/* ─── Scrollbar ────────────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--rule); border-radius: 8px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 
-/* ─── Screen-reader only ───────────────────────────────────────────── */
 .sr-only {
   position: absolute;
   width: 1px; height: 1px;
@@ -215,7 +201,6 @@ body {
   white-space: normal;
 }
 
-/* ─── Skip link ────────────────────────────────────────────────────── */
 .skip-link {
   position: absolute;
   top: -100px;
@@ -233,7 +218,6 @@ body {
   top: 1rem;
 }
 
-/* ─── Table accessibility helpers ──────────────────────────────────── */
 table caption.sr-only {
   /* Captions should be readable by AT but invisible */
 }
