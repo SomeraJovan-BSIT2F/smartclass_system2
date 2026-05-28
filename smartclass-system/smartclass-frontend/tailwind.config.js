@@ -4,8 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        serif: ['Fraunces', 'Georgia', 'serif'],
-        sans:  ['"Inter Tight"', 'system-ui', 'sans-serif'],
+        serif: ['Roboto', 'system-ui', 'sans-serif'],
+        sans:  ['Roboto', 'system-ui', 'sans-serif'],
       },
     },
   },
