@@ -2,7 +2,7 @@ import { ArrowUpRight, AlertCircle, CheckCircle2, X } from 'lucide-react';
 
 export const Card = ({ children, className = '', ...rest }) => (
   <div
-    className={`bg-white border rounded-2xl ${className}`}
+    className={`bg-white border rounded-xl ${className}`}
     style={{ borderColor: 'var(--rule)' }}
     {...rest}
   >
@@ -12,11 +12,11 @@ export const Card = ({ children, className = '', ...rest }) => (
 
 export const Pill = ({ tone = 'muted', children, ...rest }) => {
   const map = {
-    muted:  { bg: '#F3EEE5', fg: 'var(--muted)', bd: 'var(--rule)' },
-    ok:     { bg: '#E8F1EB', fg: 'var(--ok)',     bd: '#C8DCD0' },
-    warn:   { bg: '#FBF0DC', fg: '#8A5E12',       bd: '#EBD5A6' },
-    bad:    { bg: '#F4DBD5', fg: 'var(--bad)',    bd: '#E5B6AC' },
-    accent: { bg: '#F4DCD3', fg: 'var(--accent)', bd: '#E5BBA9' },
+    muted:  { bg: '#EEF2F8', fg: 'var(--muted)',  bd: 'var(--rule)' },
+    ok:     { bg: '#E3F2EC', fg: 'var(--ok)',     bd: '#C2E0D2' },
+    warn:   { bg: '#FBF1DC', fg: '#8A5E12',       bd: '#ECD9A8' },
+    bad:    { bg: '#FBE4E1', fg: 'var(--bad)',    bd: '#F1C4BE' },
+    accent: { bg: 'var(--accent-soft)', fg: 'var(--accent)', bd: '#C4D6FB' },
   }[tone] || {};
   return (
     <span
@@ -35,18 +35,18 @@ export const Button = ({
   ...rest
 }) => {
   const styles = {
-    primary: { bg: 'var(--ink)',    fg: 'var(--paper)', bd: 'var(--ink)' },
-    accent:  { bg: 'var(--accent)', fg: '#fff',         bd: 'var(--accent)' },
-    ghost:   { bg: 'transparent',   fg: 'var(--ink)',   bd: 'var(--rule)' },
-    subtle:  { bg: 'var(--cream)',  fg: 'var(--ink)',   bd: 'var(--rule)' },
-    danger:  { bg: 'var(--bad)',    fg: '#fff',         bd: 'var(--bad)' },
+    primary: { bg: 'var(--ink)',    fg: '#fff',         bd: 'var(--ink)',    shadow: true },
+    accent:  { bg: 'var(--accent)', fg: '#fff',         bd: 'var(--accent)', shadow: true },
+    ghost:   { bg: 'transparent',   fg: 'var(--ink)',   bd: 'var(--rule)',   shadow: false },
+    subtle:  { bg: 'var(--cream)',  fg: 'var(--ink)',   bd: 'var(--rule)',   shadow: false },
+    danger:  { bg: 'var(--bad)',    fg: '#fff',         bd: 'var(--bad)',    shadow: true },
   }[variant];
   return (
     <button
       type={type}
       disabled={loading || rest.disabled}
       aria-busy={loading || undefined}
-      className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium border transition-all hover:translate-y-[-1px] active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed ${className}`}
+      className={`inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium border transition-all hover:-translate-y-[1px] active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed ${styles.shadow ? 'shadow-sm hover:shadow' : ''} ${className}`}
       style={{
         background: styles.bg,
         color: styles.fg,
@@ -88,8 +88,8 @@ export const StatCard = ({ label, value, delta, icon: Icon, tone = 'ok' }) => (
       </div>
       {Icon && (
         <div
-          className="w-9 h-9 rounded-full grid place-items-center border decorative"
-          style={{ borderColor: 'var(--rule)', color: 'var(--accent)' }}
+          className="w-9 h-9 rounded-lg grid place-items-center decorative"
+          style={{ background: 'var(--accent-soft)', color: 'var(--accent)' }}
           aria-hidden="true"
         >
           <Icon size={16} />
@@ -159,7 +159,7 @@ export const Field = ({ label, children, full, error, helper }) => {
 export const Input = (props) => (
   <input
     {...props}
-    className={`w-full px-3 py-2.5 rounded-xl border bg-white text-sm ${props.className || ''}`}
+    className={`w-full px-3 py-2.5 rounded-lg border bg-white text-sm ${props.className || ''}`}
     style={{ borderColor: 'var(--rule)', minHeight: 'var(--tap-target)', ...props.style }}
   />
 );
@@ -167,7 +167,7 @@ export const Input = (props) => (
 export const Select = (props) => (
   <select
     {...props}
-    className={`w-full px-3 py-2.5 rounded-xl border bg-white text-sm ${props.className || ''}`}
+    className={`w-full px-3 py-2.5 rounded-lg border bg-white text-sm ${props.className || ''}`}
     style={{ borderColor: 'var(--rule)', minHeight: 'var(--tap-target)', ...props.style }}
   >
     {props.children}
@@ -177,7 +177,7 @@ export const Select = (props) => (
 export const Textarea = (props) => (
   <textarea
     {...props}
-    className={`w-full px-3 py-2.5 rounded-xl border bg-white text-sm ${props.className || ''}`}
+    className={`w-full px-3 py-2.5 rounded-lg border bg-white text-sm ${props.className || ''}`}
     style={{ borderColor: 'var(--rule)', ...props.style }}
   />
 );
@@ -202,8 +202,8 @@ export const Empty = ({ title, sub }) => (
 
 export const ErrorBanner = ({ children, onClose }) => (
   <div
-    className="p-3 rounded-xl border text-sm flex items-start gap-3"
-    style={{ background: '#F4DBD5', borderColor: '#E5B6AC', color: 'var(--bad)' }}
+    className="p-3 rounded-lg border text-sm flex items-start gap-3"
+    style={{ background: '#FBE4E1', borderColor: '#F1C4BE', color: 'var(--bad)' }}
     role="alert"
     aria-live="assertive"
   >
@@ -223,8 +223,8 @@ export const ErrorBanner = ({ children, onClose }) => (
 
 export const SuccessBanner = ({ children, onClose }) => (
   <div
-    className="p-3 rounded-xl border text-sm flex items-start gap-3"
-    style={{ background: '#E8F1EB', borderColor: '#C8DCD0', color: 'var(--ok)' }}
+    className="p-3 rounded-lg border text-sm flex items-start gap-3"
+    style={{ background: '#E3F2EC', borderColor: '#C2E0D2', color: 'var(--ok)' }}
     role="status"
     aria-live="polite"
   >
